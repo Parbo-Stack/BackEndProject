@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-public class AudioStoryNotFoundAdvice {
-
+public class StoryNotFoundAdvice {
 
     @ResponseBody
-    @ExceptionHandler(AudioStoryNotFoundException.class)
+    @ExceptionHandler(StoryNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String audiostoryNotFoundHandler (AudioStoryNotFoundException ex) { return ex.getMessage();}
+
+    public String storiesNotFoundHandler (StoryNotFoundException ex) { return ex.getMessage();}
 }
