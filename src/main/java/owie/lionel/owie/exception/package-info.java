@@ -1,4 +1,4 @@
-package owie.lionel.owie.Exception;
+package owie.lionel.owie.exception;
 
 /*
 In deze package staan de Excepties die door je REST-service gegooid kunnen worden. Deze zijn gebasseerd op de tutorial

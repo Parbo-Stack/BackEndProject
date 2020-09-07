@@ -1,10 +1,9 @@
-package owie.lionel.owie.Controller;
+package owie.lionel.owie.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import owie.lionel.owie.Model.Stories;
-import owie.lionel.owie.Service.StoriesService;
-import owie.lionel.owie.persistence.StoriesRepository;
+import owie.lionel.owie.domain.Stories;
+import owie.lionel.owie.service.StoriesService;
 
 import java.util.List;
 
@@ -24,11 +23,10 @@ public class StoriesController {
         return storiesService.getStoryById(id);
     }
 
-    @DeleteMapping(value= "/api/story/{id}")
-    public void deleteStory(@PathVariable Long id) {
+    @DeleteMapping(value = "/api/story/{id}")
+    public void deleteStoryById(@PathVariable Long id) {
         storiesService.deleteStoryById(id);
     }
-
 
     @PostMapping(value = "/api/story/")
     public Stories addStory(@RequestBody Stories newStory) {
