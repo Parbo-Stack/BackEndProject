@@ -1,6 +1,6 @@
-package owie.lionel.owie.Service;
+package owie.lionel.owie.service;
 
-import owie.lionel.owie.Model.Stories;
+import owie.lionel.owie.domain.Stories;
 
 import java.util.List;
 

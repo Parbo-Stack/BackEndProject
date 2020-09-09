@@ -18,7 +18,7 @@ public class AuthController {
         @Autowired
         AuthorizationService authorizationService;
 
-        @PostMapping("/signin")
+        @PostMapping("/login")
         public ResponseEntity<JwtResponse> authenticateUser(@RequestBody LoginRequest loginRequest) {
             return authorizationService.authenticateUser(loginRequest);
         }

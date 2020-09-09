@@ -1,4 +1,4 @@
-package owie.lionel.owie.Exception;
+package owie.lionel.owie.exception;
 
 public class StoryNotFoundException extends RuntimeException {
 

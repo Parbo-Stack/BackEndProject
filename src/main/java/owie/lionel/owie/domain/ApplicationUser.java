@@ -11,14 +11,9 @@ import java.util.Set;
 public class ApplicationUser {
 
     @Id
-    @GeneratedValue(
-            strategy= GenerationType.AUTO,
-            generator="native"
-    )
-    @GenericGenerator(
-            name = "native",
-            strategy = "native"
-    )
+    @GeneratedValue(strategy= GenerationType.AUTO, generator="native")
+    @GenericGenerator(name = "native", strategy = "native")
+
     @Column(columnDefinition = "serial")
     private long id;
     private String username;
@@ -27,7 +22,6 @@ public class ApplicationUser {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Stories> storiesList;
-
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StoryParts> storyPartsList;

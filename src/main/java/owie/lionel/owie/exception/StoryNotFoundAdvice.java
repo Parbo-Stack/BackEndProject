@@ -1,5 +1,4 @@
-package owie.lionel.owie.Exception;
-
+package owie.lionel.owie.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -8,11 +7,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-public class UsersNotFoundAdvice {
+public class StoryNotFoundAdvice {
 
     @ResponseBody
-    @ExceptionHandler(UsersNotFoundException.class)
+    @ExceptionHandler(StoryNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
 
-    public String UsersNotFoundHandler ( UsersNotFoundException ex) { return ex.getMessage();}
+    public String storiesNotFoundHandler (StoryNotFoundException ex) { return ex.getMessage();}
 }

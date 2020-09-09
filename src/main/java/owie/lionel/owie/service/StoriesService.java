@@ -1,10 +1,10 @@
-package owie.lionel.owie.Service;
+package owie.lionel.owie.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import owie.lionel.owie.Exception.StoryNotFoundException;
-import owie.lionel.owie.Model.Stories;
-import owie.lionel.owie.persistence.StoriesRepository;
+import owie.lionel.owie.exception.StoryNotFoundException;
+import owie.lionel.owie.domain.Stories;
+import owie.lionel.owie.repository.StoriesRepository;
 
 import java.util.List;
 
@@ -13,7 +13,6 @@ public class StoriesService implements IStoriesService {
 
     @Autowired
     private StoriesRepository storiesRepository;
-
 
     @Override
     public List<Stories> findAllStories() {
