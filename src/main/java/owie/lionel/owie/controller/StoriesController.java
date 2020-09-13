@@ -13,7 +13,7 @@ public class StoriesController {
     @Autowired
     private StoriesService storiesService;
 
-    @GetMapping(value = "/api/story")
+    @GetMapping(value = "/api/stories")
     public List<Stories> getStories() {
         return storiesService.findAllStories();
     }

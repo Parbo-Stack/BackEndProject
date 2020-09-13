@@ -27,7 +27,6 @@ public class StoryParts {
     private Stories story;
 
     public StoryParts () {
-
     }
 
     public ApplicationUser getUser() { return user;}

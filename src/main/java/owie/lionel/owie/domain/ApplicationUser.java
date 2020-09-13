@@ -19,6 +19,7 @@ public class ApplicationUser {
     private String username;
     private String email;
     private String password;
+    private String isAdmin;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Stories> storiesList;
@@ -40,6 +41,8 @@ public class ApplicationUser {
         this.username = username;
         this.email = email;
         this.password = password;
+
+
     }
 
     public long getId() {
@@ -74,6 +77,10 @@ public class ApplicationUser {
         this.password = password;
     }
 
+    public String getIsAdmin() { return isAdmin; }
+
+    public void setIsAdmin(String isAdmin) { this.isAdmin = isAdmin; }
+
     public Set<Role> getRoles() {
         return roles;
     }
@@ -89,6 +96,7 @@ public class ApplicationUser {
     public List<StoryParts> getStoryPartsList() { return storyPartsList; }
 
     public void setStoryPartsList(List<StoryParts> storyPartsList) { this.storyPartsList = storyPartsList; }
+
 }
 
 
