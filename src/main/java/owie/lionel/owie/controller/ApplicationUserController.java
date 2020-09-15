@@ -31,23 +31,17 @@ public class ApplicationUserController {
     public ApplicationUser updateUserById(@PathVariable long id, @RequestBody ApplicationUser updatedUser) {
         return applicationUserService.updateUserById(id, updatedUser); }
 
+    @PutMapping("api/user/{id}/story")
+    public ApplicationUser addStoryToUser(@PathVariable long id, @RequestBody Stories newStory) {
+        return applicationUserService.addStoryToUser(id, newStory);
+    }
+
+
+
+
         @PostMapping("/api/user/fill")
-        public ApplicationUser addTestUsers() {
-            ApplicationUser user = new ApplicationUser();
-            user.setUsername("Lionel Emanuelson");
-            user.setEmail("emanuelsonlionel@hotmail.com");
+        public ApplicationUser addTestUsers() {return applicationUserService.addTestUserWithStories();}
 
-            Stories lezen = new Stories();
-            lezen.setTitle("puzzelstuk");
-            lezen.setBody("storytime");
-
-            Stories read = new Stories();
-            read.setTitle("boek");
-            read.setStoryid(1);
-
-
-            applicationUserRepository.save(user);
-            return user;
         }
 
-}
+

@@ -13,33 +13,30 @@ public class StoryPartsService implements IStoryPartsService {
     @Autowired
     public StoryPartsRepository storyPartsRepository;
 
-
     @Override
-    public StoryParts addStoryParts(StoryParts newStoryParts) {
+    public StoryParts addStoryPart(StoryParts newStoryPart) {
         List<StoryParts> user = storyPartsRepository.findAll();
 
         if (user.isEmpty()) {
-            newStoryParts.setUser(addStoryParts(newStoryParts).getUser());
-            return storyPartsRepository.save(newStoryParts);
+            newStoryPart.setUser(addStoryPart(newStoryPart).getUser());
+            return storyPartsRepository.save(newStoryPart);
         }
         return null;
     }
 
-   /* @Override
-    public StoryParts updateStoryPartById(long id, StoryParts updatedStory) {
+    @Override
+    public StoryParts updateStoryPartById(long id, StoryParts updatedPart) {
         return storyPartsRepository.findById(id).map(
                 part -> {
-                    part.setBody(updatedStory.getBody());
-                    part.setTitle(updatedStory.getTitle());
+                    part.setAuthor(updatedPart.getAuthor());
+                    part.setBody(updatedPart.getBody());
                     return storyPartsRepository.save(part);
-
                 })
                 //kan story niet vinden in database
-                .orElse(() -> {
-                    updatedStory.setAuthorId(id);
-                    return storyPartsRepository.save(updatedStory);
+                .orElseGet(() -> {
+                    updatedPart.setStoryPartsId(id);
+                    return storyPartsRepository.save(updatedPart);
                 });
-*/
+    }
 
 }
-

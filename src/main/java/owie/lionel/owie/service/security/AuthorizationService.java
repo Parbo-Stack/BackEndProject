@@ -86,7 +86,7 @@ public class AuthorizationService {
                 }
 
                 // Create new user's account
-                ApplicationUser applicationUser = new ApplicationUser(signUpRequest.getUsername(),
+                ApplicationUser user = new ApplicationUser(signUpRequest.getUsername(),
                         signUpRequest.getEmail(),
                         encoder.encode(signUpRequest.getPassword()));
 
@@ -115,8 +115,8 @@ public class AuthorizationService {
                         });
                 }
 
-                applicationUser.setRoles(roles);
-                userRepository.save(applicationUser);
+                user.setRoles(roles);
+                userRepository.save(user);
 
                 return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
         }

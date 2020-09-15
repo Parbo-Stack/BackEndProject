@@ -4,8 +4,6 @@ import owie.lionel.owie.domain.StoryParts;
 
 public interface IStoryPartsService {
 
-    StoryParts addStoryParts(StoryParts newStory);
-
-    //nog niet zeker als er updates komen
-    //StoryParts updateStoryPartById (long id, StoryParts updatedStory);
+    StoryParts addStoryPart(StoryParts newStory);
+    StoryParts updateStoryPartById (long id, StoryParts updatedPart);
 }

@@ -16,10 +16,10 @@ public class Stories {
             name = "native",
             strategy = "native"
     )
-    private long storyid;
+    private long StoriesId;
     private String title;
     private String body;
-    private String author;
+    private int authorId;
     private Date DatePublished;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "story",
@@ -34,9 +34,9 @@ public class Stories {
 
     }
 
-    public long getStoryid() { return storyid; }
+    public long getStoriesId() { return StoriesId; }
 
-    public void setStoryid(long storyid) { this.storyid = storyid; }
+    public void setStoriesId(long storiesId) { StoriesId = storiesId; }
 
     public String getTitle() { return title; }
 
@@ -44,15 +44,15 @@ public class Stories {
 
     public String getBody() { return body; }
 
-    public void setBody(String body) { this.body = body;}
+    public void setBody(String body) { this.body = body; }
 
-    public String getAuthor() { return author; }
+    public int getAuthorId() { return authorId; }
 
-    public void setAuthor(int authorId) { this.author = author; }
+    public void setAuthorId(int authorId) { this.authorId = authorId; }
 
     public Date getDatePublished() { return DatePublished; }
 
-    public void setDatePublished(Date datePublished) {DatePublished = datePublished; }
+    public void setDatePublished(Date datePublished) { DatePublished = datePublished; }
 
     public List<StoryParts> getStoryPartsList() { return storyPartsList; }
 
