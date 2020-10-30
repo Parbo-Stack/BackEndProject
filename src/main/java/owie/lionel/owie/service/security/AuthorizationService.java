@@ -1,16 +1,15 @@
 package owie.lionel.owie.service.security;
 
-import owie.lionel.owie.domain.ApplicationUser;
 import owie.lionel.owie.domain.ERole;
 import owie.lionel.owie.domain.Role;
-import owie.lionel.owie.service.security.jwt.JwtUtils;
+import owie.lionel.owie.domain.User;
 import owie.lionel.owie.payload.request.LoginRequest;
 import owie.lionel.owie.payload.request.SignupRequest;
 import owie.lionel.owie.payload.response.JwtResponse;
 import owie.lionel.owie.payload.response.MessageResponse;
 import owie.lionel.owie.repository.RoleRepository;
 import owie.lionel.owie.repository.UserRepository;
-
+import owie.lionel.owie.service.security.jwt.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -86,7 +85,7 @@ public class AuthorizationService {
                 }
 
                 // Create new user's account
-                ApplicationUser user = new ApplicationUser(signUpRequest.getUsername(),
+                User user = new User(signUpRequest.getUsername(),
                         signUpRequest.getEmail(),
                         encoder.encode(signUpRequest.getPassword()));
 
@@ -106,7 +105,6 @@ public class AuthorizationService {
                                                 roles.add(adminRole);
 
                                                 break;
-
                                         default:
                                                 Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                                                         .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_ERROR));
@@ -120,7 +118,6 @@ public class AuthorizationService {
 
                 return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
         }
-
 
         public ResponseEntity<JwtResponse> authenticateUser(@Valid LoginRequest loginRequest) {
 

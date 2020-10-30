@@ -1,15 +1,15 @@
 package owie.lionel.owie.service.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import owie.lionel.owie.domain.ApplicationUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
+import owie.lionel.owie.domain.User;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
 
 public class UserDetailsImpl implements UserDetails {
 
@@ -32,16 +32,16 @@ public class UserDetailsImpl implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static UserDetailsImpl build(ApplicationUser applicationUser) {
-        List<GrantedAuthority> authorities = applicationUser.getRoles().stream()
+    public static UserDetailsImpl build(User user) {
+        List<GrantedAuthority> authorities = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
 
         return new UserDetailsImpl(
-                applicationUser.getApplicationUserid(),
-                applicationUser.getUsername(),
-                applicationUser.getEmail(),
-                applicationUser.getPassword(),
+                user.getUserId(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getPassword(),
                 authorities);
     }
 

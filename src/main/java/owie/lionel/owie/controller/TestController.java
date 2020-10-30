@@ -12,7 +12,6 @@ import owie.lionel.owie.service.security.TestService;
 @RequestMapping("/api/test")
 public class TestController {
 
-
     private final TestService testService;
 
     @Autowired
