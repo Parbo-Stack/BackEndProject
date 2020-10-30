@@ -14,9 +14,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     @Column(columnDefinition = "serial")
-
-
-    private long UserId;
+    private long userId;
     private String username;
     private String email;
 
@@ -48,11 +46,11 @@ public class User {
     }
 
     public long getUserId() {
-        return UserId;
+        return userId;
     }
 
     public void setUserId(long userId) {
-        UserId = userId;
+        this.userId = userId;
     }
 
     public String getUsername() {

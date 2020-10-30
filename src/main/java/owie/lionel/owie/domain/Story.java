@@ -19,7 +19,6 @@ public class Story {
     private String title;
     @Column(name = "body", columnDefinition = "TEXT")
     private String body;
-    private String authorId;
 
     LocalTime localTime = LocalTime.now();
 
@@ -55,16 +54,6 @@ public class Story {
     public void setBody(String body) {
         this.body = body;
     }
-
-    public String getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(String authorId) {
-        this.authorId = authorId;
-    }
-
-
 
     public LocalTime getLocalTime() {
         return localTime;
