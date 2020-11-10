@@ -1,7 +1,9 @@
 package owie.lionel.owie.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.time.LocalTime;
 import java.util.List;
@@ -25,7 +27,11 @@ public class Story {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "story",
             cascade = CascadeType.ALL, orphanRemoval = true)
-            private List<StoryPart> storyParts;
+    private List<StoryPart> storyParts;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "story",
+            cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FileDB> fileDBS;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties("stories")
@@ -78,4 +84,8 @@ public class Story {
     public void setAuthor(User author) {
         this.author = author;
     }
+
+    public List<FileDB> getFileDBS() { return fileDBS;}
+
+    public void setFileDBS(List<FileDB> fileDBS) { this.fileDBS = fileDBS;}
 }

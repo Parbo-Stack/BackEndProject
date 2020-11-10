@@ -18,12 +18,13 @@ import java.util.stream.Collectors;
 
 
 @Controller
+@CrossOrigin("http://localhost:8080/")
 public class FileController {
 
     @Autowired
     private FileStorageService storageService;
 
-    @PostMapping("http://localhost:8051/api/story/upload")
+    @PostMapping("api/story/upload")
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
         String message = "";
         try {
@@ -37,7 +38,7 @@ public class FileController {
         }
     }
 
-    @GetMapping("http://localhost:8051/api/story/files")
+    @GetMapping("api/story/files")
     public ResponseEntity<List<ResponseFile>> getListFiles() {
         List<ResponseFile> files = storageService.getAllFiles().map(dbFile -> {
             String fileDownloadUri = ServletUriComponentsBuilder
@@ -56,7 +57,7 @@ public class FileController {
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
 
-    @GetMapping("http://localhost:8051/api/story/files/{id}")
+    @GetMapping("api/story/files/{id}")
     public ResponseEntity<byte[]> getFile(@PathVariable String id) {
         FileDB fileDB = storageService.getFile(id);
 

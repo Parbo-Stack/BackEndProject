@@ -17,7 +17,7 @@ public class StoryPart {
     private String storyId;
     private String body;
     LocalTime localTime = LocalTime.now();
-    private String authorId;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties("users")
@@ -48,14 +48,6 @@ public class StoryPart {
     public LocalTime getLocalTime() { return localTime; }
 
     public void setLocalTime(LocalTime localTime) { this.localTime = localTime; }
-
-    public String getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(String authorId) {
-        this.authorId = authorId;
-    }
 
     public User getAppUser() {
         return appUser;

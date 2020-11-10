@@ -17,7 +17,7 @@ public class StoryController {
     @GetMapping(value = "api/stories")
     public List<Story> getAllStories() { return storyService.getAllStories(); }
 
-    @GetMapping (value = "api/story/{id}")
+    @GetMapping (value = "api/stories/{id}")
     public Story getStoryById(@PathVariable Long id) { return storyService.findById(id); }
 
     @PostMapping(value = "api/story/{username}")
