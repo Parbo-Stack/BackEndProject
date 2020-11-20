@@ -63,5 +63,6 @@ public class StoryPart {
 
     public void setStory(Story story) {
         this.story = story;
+
     }
 }

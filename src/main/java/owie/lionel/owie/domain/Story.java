@@ -17,25 +17,24 @@ public class Story {
             name = "native",
             strategy = "native"
     )
+
     private long storyId;
     private String title;
     @Column(name = "body", columnDefinition = "TEXT")
     private String body;
-
     LocalTime localTime = LocalTime.now();
-
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "story",
             cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StoryPart> storyParts;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "story",
-            cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<FileDB> fileDBS;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties("stories")
     private User author;
+
+    public Story (){
+    }
 
     public long getStoryId() {
         return storyId;
@@ -85,7 +84,4 @@ public class Story {
         this.author = author;
     }
 
-    public List<FileDB> getFileDBS() { return fileDBS;}
-
-    public void setFileDBS(List<FileDB> fileDBS) { this.fileDBS = fileDBS;}
 }

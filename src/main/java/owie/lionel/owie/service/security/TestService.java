@@ -10,7 +10,7 @@ public class TestService {
         return "Public Content.";
     }
 
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER')")
     public String generateUserContent() {
         return "User Content.";
     }
