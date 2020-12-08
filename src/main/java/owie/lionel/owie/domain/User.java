@@ -14,13 +14,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     @Column(columnDefinition = "serial")
-    private long userId;
+    private Long userId;
     private String username;
     private String email;
 
     @JsonIgnore
     private String password;
-
 
     @ManyToMany
     @JoinTable(name = "user_role",
@@ -45,13 +44,9 @@ public class User {
         this.password = password;
     }
 
-    public long getUserId() {
-        return userId;
-    }
+    public Long getUserId() { return userId; }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
+    public void setUserId(Long userId) { this.userId = userId; }
 
     public String getUsername() {
         return username;
@@ -100,4 +95,5 @@ public class User {
     public void setStories(List<Story> stories) {
         this.stories = stories;
     }
+
 }

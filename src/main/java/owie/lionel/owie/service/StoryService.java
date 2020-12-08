@@ -29,6 +29,7 @@ public class StoryService implements IStoryService  {
         return story.orElse(null);
     }
 
+
     @Override
     public Story createStory( String username, Story newStory) {
         Optional<User> userFromDb = userRepository.findByUsername(username);

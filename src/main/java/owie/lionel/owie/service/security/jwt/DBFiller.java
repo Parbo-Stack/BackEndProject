@@ -27,7 +27,7 @@ class DBFiller implements CommandLineRunner {
         SignupRequest admin = new SignupRequest();
         admin.setUsername("admin");
         admin.setEmail("admin@admin.com");
-        admin.setPassword("BlauweBeker$12");
+        admin.setPassword("testen");
         admin.setRole(roles);
         authorizationService.registerUser(admin);
         

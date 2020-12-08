@@ -1,13 +1,10 @@
 package owie.lionel.owie.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
-import java.time.LocalTime;
+import java.time.LocalDate;
 import java.util.List;
-
 @Entity
 public class Story {
 
@@ -18,11 +15,11 @@ public class Story {
             strategy = "native"
     )
 
-    private long storyId;
+    private Long storyId;
     private String title;
     @Column(name = "body", columnDefinition = "TEXT")
     private String body;
-    LocalTime localTime = LocalTime.now();
+    LocalDate localDate = LocalDate.now();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "story",
             cascade = CascadeType.ALL, orphanRemoval = true)
@@ -36,11 +33,11 @@ public class Story {
     public Story (){
     }
 
-    public long getStoryId() {
+    public Long getStoryId() {
         return storyId;
     }
 
-    public void setStoryId(long storyId) {
+    public void setStoryId(Long storyId) {
         this.storyId = storyId;
     }
 
@@ -60,13 +57,9 @@ public class Story {
         this.body = body;
     }
 
-    public LocalTime getLocalTime() {
-        return localTime;
-    }
+    public LocalDate getLocalDate() { return localDate; }
 
-    public void setLocalTime(LocalTime localTime) {
-        this.localTime = localTime;
-    }
+    public void setLocalDateTime(LocalDate localDate) { this.localDate = localDate; }
 
     public List<StoryPart> getStoryParts() {
         return storyParts;
@@ -80,8 +73,6 @@ public class Story {
         return author;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
-    }
+    public void setAuthor(User author) { this.author = author; }
 
 }

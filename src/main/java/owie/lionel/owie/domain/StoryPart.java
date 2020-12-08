@@ -1,9 +1,13 @@
 package owie.lionel.owie.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 
@@ -13,16 +17,17 @@ public class StoryPart {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
-    private long storypartId;
-    private String storyId;
+    private long storyPartId;
+    @Column(name = "body", columnDefinition = "TEXT")
     private String body;
-    LocalTime localTime = LocalTime.now();
+    LocalDate localDate = LocalDate.now();
 
-
+    @JsonIgnore //toegevoegd zodat ik java.lang.IllegalStateException: Cannot call sendError() after the response has been committed voorkom
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties("users")
     private User appUser;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties("stories")
     private Story story;
@@ -31,23 +36,21 @@ public class StoryPart {
 
     }
 
-    public long getStorypartId() {
-        return storypartId;
+    public long getStoryPartId() {
+        return storyPartId;
     }
 
-    public void setStorypartId(long storypartId) { this.storypartId = storypartId; }
+    public void setStoryPartId(long storyPartId) {
+        this.storyPartId = storyPartId;
+    }
 
-    public String getStoryId() { return storyId; }
+    public String getBody() {
+        return body;
+    }
 
-    public void setStoryId(String storyId) { this.storyId = storyId; }
-
-    public String getBody() { return body; }
-
-    public void setBody(String body) { this.body = body; }
-
-    public LocalTime getLocalTime() { return localTime; }
-
-    public void setLocalTime(LocalTime localTime) { this.localTime = localTime; }
+    public void setBody(String body) {
+        this.body = body;
+    }
 
     public User getAppUser() {
         return appUser;
@@ -61,8 +64,17 @@ public class StoryPart {
         return story;
     }
 
+    public LocalDate getLocalDate() {
+        return localDate;
+    }
+
+    public void setLocalDate(LocalDate localDate) {
+        this.localDate = localDate;
+    }
+
     public void setStory(Story story) {
         this.story = story;
-
     }
+
+
 }

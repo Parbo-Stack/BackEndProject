@@ -21,7 +21,8 @@ public class StoryController {
     public Story getStoryById(@PathVariable Long id) { return storyService.findById(id); }
 
     @PostMapping(value = "api/story/{username}")
-    public Story createStory(@PathVariable String username, @RequestBody Story newStory) { return storyService.createStory(username, newStory); }
+    public Story createStory(@PathVariable String username, @RequestBody Story newStory)
+    { return storyService.createStory(username, newStory); }
 
     @PutMapping(value = "api/story/{id}")
     public Story updateStoryById(@PathVariable Long id, @RequestBody Story updatedStory) {
