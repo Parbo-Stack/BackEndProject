@@ -1,47 +1,64 @@
 package owie.lionel.owie.domain;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
+import javax.persistence.Id;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Date;
+
 
 @Entity
 public class StoryPart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-    @GenericGenerator(name = "native", strategy = "native")
-    private long storyPartId;
+    @GenericGenerator(
+            name = "native",
+            strategy = "native"
+    )
+
+    private long StoryPartId;
     @Column(name = "body", columnDefinition = "TEXT")
     private String body;
     LocalDate localDate = LocalDate.now();
-
-    @JsonIgnore //toegevoegd zodat ik java.lang.IllegalStateException: Cannot call sendError() after the response has been committed voorkom
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties("users")
-    private User appUser;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties("stories")
     private Story story;
 
-    public StoryPart() {
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("finishStory")
+    private FinishStory finishStory;
 
-    }
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("writeStory")
+    private WriteStory writeStory;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("users")
+    private User appUser; //deze appUser wordt gegeven/gevraagd in de StorypartService klasse
+
+   public StoryPart () {}
+
+    public WriteStory getWriteStory() { return writeStory; }
+
+    public void setWriteStory(WriteStory writeStory) { this.writeStory = writeStory; }
+
+    public FinishStory getFinishStory() {return finishStory; }
+
+    public void setFinishStory(FinishStory finishStory) { this.finishStory = finishStory; }
 
     public long getStoryPartId() {
-        return storyPartId;
+        return StoryPartId;
     }
 
     public void setStoryPartId(long storyPartId) {
-        this.storyPartId = storyPartId;
+        StoryPartId = storyPartId;
     }
 
     public String getBody() {
@@ -52,18 +69,6 @@ public class StoryPart {
         this.body = body;
     }
 
-    public User getAppUser() {
-        return appUser;
-    }
-
-    public void setAppUser(User appUser) {
-        this.appUser = appUser;
-    }
-
-    public Story getStory() {
-        return story;
-    }
-
     public LocalDate getLocalDate() {
         return localDate;
     }
@@ -72,9 +77,11 @@ public class StoryPart {
         this.localDate = localDate;
     }
 
-    public void setStory(Story story) {
-        this.story = story;
-    }
+    public Story getStory() { return story; }
 
+    public void setStory(Story story) { this.story = story; }
 
+    public User getAppUser() { return appUser; }
+
+    public void setAppUser(User appUser) { this.appUser = appUser; }
 }

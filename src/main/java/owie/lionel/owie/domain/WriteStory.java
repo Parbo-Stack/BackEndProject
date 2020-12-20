@@ -2,14 +2,13 @@ package owie.lionel.owie.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name= "Story")
-@Inheritance(strategy = InheritanceType.JOINED)
-public class Story {
+public class WriteStory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
@@ -18,33 +17,29 @@ public class Story {
             strategy = "native"
     )
 
-    private Long storyId;
-    String title;
+    private Long writeStoryId;
+    private String title;
     @Column(name = "body", columnDefinition = "TEXT")
-    String body;
+    private String body;
     LocalDate localDate = LocalDate.now();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "story")
+    public WriteStory() {
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "writeStory",
+            cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StoryPart> storyParts;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties("stories")
-    private User author;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("writeStories")
+    private User user;
 
-    public Story() {}
-
-    public Story(String title, String body, LocalDate localDate) {
-        this.title = title;
-        this.body = body;
-        this.localDate = localDate;
+    public Long getWriteStoryId() {
+        return writeStoryId;
     }
 
-    public Long getStoryId() {
-        return storyId;
-    }
-
-    public void setStoryId(Long storyId) {
-        this.storyId = storyId;
+    public void setWriteStoryId(Long writeStoryId) {
+        this.writeStoryId = writeStoryId;
     }
 
     public String getTitle() {
@@ -67,7 +62,7 @@ public class Story {
         return localDate;
     }
 
-    public void setLocalDateTime(LocalDate localDate) {
+    public void setLocalDate(LocalDate localDate) {
         this.localDate = localDate;
     }
 
@@ -79,10 +74,11 @@ public class Story {
         this.storyParts = storyParts;
     }
 
-    public User getAuthor() { return author; }
-
-    public void setAuthor(User author) {
-        this.author = author;
+    public User getUser() {
+        return user;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

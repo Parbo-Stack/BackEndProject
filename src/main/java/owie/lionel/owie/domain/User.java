@@ -2,22 +2,24 @@ package owie.lionel.owie.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
+
 @Entity
 @Table(name = "app_user")
-public class User {
+public class  User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     @Column(columnDefinition = "serial")
+
     private Long userId;
     private String username;
     private String email;
-
     @JsonIgnore
     private String password;
 
@@ -27,16 +29,20 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "author",
-            cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<FinishStory> finishedStories;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<WriteStory> writeStories;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
     private List<Story> stories;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "appUser",
-            cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "appUser")
     private List<StoryPart> storyParts;
 
-    public User() {
-    }
+
+    public User() {}
 
     public User(String username, String email, String password) {
         this.username = username;
@@ -44,9 +50,13 @@ public class User {
         this.password = password;
     }
 
-    public Long getUserId() { return userId; }
+    public Long getUserId() {
+        return userId;
+    }
 
-    public void setUserId(Long userId) { this.userId = userId; }
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
     public String getUsername() {
         return username;
@@ -80,12 +90,20 @@ public class User {
         this.roles = roles;
     }
 
-    public List<StoryPart> getStoryParts() {
-        return storyParts;
+    public List<FinishStory> getFinishedStories() {
+        return finishedStories;
     }
 
-    public void setStoryParts(List<StoryPart> storyParts) {
-        this.storyParts = storyParts;
+    public void setFinishedStories(List<FinishStory> finishedStories) {
+        this.finishedStories = finishedStories;
+    }
+
+    public List<WriteStory> getWriteStories() {
+        return writeStories;
+    }
+
+    public void setWriteStories(List<WriteStory> writeStories) {
+        this.writeStories = writeStories;
     }
 
     public List<Story> getStories() {
@@ -94,6 +112,14 @@ public class User {
 
     public void setStories(List<Story> stories) {
         this.stories = stories;
+    }
+
+    public List<StoryPart> getStoryParts() {
+        return storyParts;
+    }
+
+    public void setStoryParts(List<StoryPart> storyParts) {
+        this.storyParts = storyParts;
     }
 
 }

@@ -1,12 +1,14 @@
 package owie.lionel.owie.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import owie.lionel.owie.domain.Story;
 import owie.lionel.owie.domain.User;
 import owie.lionel.owie.repository.StoryRepository;
 import owie.lionel.owie.repository.UserRepository;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +26,16 @@ public class StoryService implements IStoryService  {
         return storyRepository.findAll(); }
 
     @Override
+    public List<Story> getAllStories(Principal principal, String username) {
+//        Optional<Story> story = storyRepository.findByAuthor(author);
+        Optional<User> user = userRepository.findByUsername(username);
+
+        if(user.isPresent() ){
+            getAllStories(principal, username);
+        }
+        return storyRepository.findAll(); }
+
+    @Override
     public Story findById(Long id) {
         Optional<Story> story = storyRepository.findById(id);
         return story.orElse(null);
@@ -31,15 +43,16 @@ public class StoryService implements IStoryService  {
 
 
     @Override
-    public Story createStory( String username, Story newStory) {
-        Optional<User> userFromDb = userRepository.findByUsername(username);
+    public Story createStory(UserDetails userDetails, Story newStory) {
+        Optional<User> user = userRepository.findByUsername(userDetails.getUsername());
 
-        if (userFromDb.isPresent()) {
-            newStory.setAuthor(userFromDb.get());
+        if (user.isPresent()) {
+            newStory.setAuthor(user.get());
             return storyRepository.save(newStory);
         }
         return null;
     }
+
     @Override
     public Story findById(Long id, Story updatedStory){
         return storyRepository.findById(id) .map(
@@ -56,7 +69,14 @@ public class StoryService implements IStoryService  {
     }
 
     @Override
-    public void deleteById(Long id) { storyRepository.deleteById(id); }
+    public void deleteById (Long id) {
+        Optional<Story> story = storyRepository.findById(id);
+
+            if (story.isPresent()) {
+                storyRepository.deleteById(id);
+            }
+        }
+
 
     @Override
     public List<Story> deleteAll () {
@@ -64,27 +84,5 @@ public class StoryService implements IStoryService  {
         //De return statement weer nakijken, want dit is niet geadviseerd te doen(video nick: put and delete video)
         return null;
     }
-
-    @Override
-    public List<Story> findByTitle(String title) {
-          return storyRepository.findByTitle(title);
-    }
-
-
-/*
-   @Override
-    public Story addStory(long storiesId, Story newStory) {
-        Optional<ApplicationUser> userFromDb = applicationUserRepository.findById(storiesId);
-
-        if(userFromDb.isPresent()) {
-            newStory.setOwner(userFromDb.get());
-            return storyRepository.save(newStory);
-        }
-        return null;
-
-
-   }
- */
-
 
 }

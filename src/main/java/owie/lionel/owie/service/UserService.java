@@ -37,69 +37,17 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User updateUserById(Long id, User updatedUser) {
-        Optional<User> userFromDb = userRepository.findById(id);
-
-        if (userFromDb.isPresent()) {
-            if (checkIsValidName(updatedUser.getUsername())) {
-                User applicationUser = new User();
-                applicationUser.setUsername(updatedUser.getUsername());
-                applicationUser.setEmail(updatedUser.getEmail());
-                return userRepository.save(updatedUser);
-            }
-        }
-        throw new UserNotFoundException(id);
-    }
-
-    @Override
     public String deleteUser(Long id) {
         Optional<User> user = userRepository.findById(id);
         if(user.isPresent()) {
             userRepository.deleteById(id);
-            return "User with id" + user.get().getUserId() + "is verwijderd";
+            return "User with id"  + user.get().getUserId() +  "is verwijderd";
         }
           throw new UserNotFoundException("Sorry, i don't exist");
     }
 
-    @Override
-    public User addStoryToUser(Long id, Story newStory) {
-        Optional<User> user =
-                userRepository.findById(id);
 
-        if (user.isPresent()) {
-            User userFromDb = user.get();
-            List<Story> currentStories = userFromDb.getStories();
-
-            if (newStory.getAuthor() == null || newStory.getAuthor().getUserId() != id) {
-                newStory.setAuthor(userFromDb);
-            }
-            currentStories.add(newStory);
-            userFromDb.setStories(currentStories);
-
-            return userRepository.save(userFromDb);
-        }
-        throw new UserNotFoundException(id);
-    }
-
-    @Override
-    public User addTestUserWithStories() {
-        User user = new User();
-        user.setUsername("Lionel Emanuelson");
-        user.setEmail("emanuelsonlionel@hotmail.com");
-
-        Story lezen = new Story();
-        lezen.setTitle("puzzelstuk");
-
-        Story read = new Story();
-        read.setTitle("boek");
-
-        return userRepository.save(user);
-    }
-
-    private boolean checkIsValidName(String name) {
-        if (name.contains("fuck") || name.equalsIgnoreCase("")) {
-            return false;
-        }
-        return true;
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 }
