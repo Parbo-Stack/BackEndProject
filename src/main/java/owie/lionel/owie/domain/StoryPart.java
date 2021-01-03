@@ -3,10 +3,11 @@ package owie.lionel.owie.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import javax.persistence.Id;
 import java.time.LocalDate;
-
 
 @Entity
 public class StoryPart {
@@ -28,30 +29,14 @@ public class StoryPart {
     @JsonIgnoreProperties("stories")
     private Story story;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties("finishStory")
-    private FinishStory finishStory;
-
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties("writeStory")
-    private WriteStory writeStory;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties("users")
-    private User appUser; //deze appUser wordt gegeven/gevraagd in de StorypartService klasse
+    private User appUser; 
 
-   public StoryPart () {}
-
-    public WriteStory getWriteStory() { return writeStory; }
-
-    public void setWriteStory(WriteStory writeStory) { this.writeStory = writeStory; }
-
-    public FinishStory getFinishStory() {return finishStory; }
-
-    public void setFinishStory(FinishStory finishStory) { this.finishStory = finishStory; }
+    public StoryPart() {
+    }
 
     public long getStoryPartId() {
         return StoryPartId;
@@ -77,11 +62,20 @@ public class StoryPart {
         this.localDate = localDate;
     }
 
-    public Story getStory() { return story; }
+    public Story getStory() {
+        return story;
+    }
 
-    public void setStory(Story story) { this.story = story; }
+    public void setStory(Story story) {
+        this.story = story;
+    }
 
-    public User getAppUser() { return appUser; }
+    public User getAppUser() {
+        return appUser;
+    }
 
-    public void setAppUser(User appUser) { this.appUser = appUser; }
+    public void setAppUser(User appUser) {
+        this.appUser = appUser;
+    }
+
 }

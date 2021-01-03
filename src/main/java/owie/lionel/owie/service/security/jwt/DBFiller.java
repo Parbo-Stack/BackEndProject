@@ -30,7 +30,7 @@ class DBFiller implements CommandLineRunner {
         admin.setPassword("testen");
         admin.setRole(roles);
         authorizationService.registerUser(admin);
-        
+
     }
 }
 

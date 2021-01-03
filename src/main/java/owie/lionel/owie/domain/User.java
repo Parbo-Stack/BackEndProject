@@ -7,10 +7,9 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
-
 @Entity
 @Table(name = "app_user")
-public class  User {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
@@ -29,20 +28,15 @@ public class  User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private List<FinishStory> finishedStories;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private List<WriteStory> writeStories;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "users")
     private List<Story> stories;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "appUser")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "appUser")
     private List<StoryPart> storyParts;
 
 
-    public User() {}
+    public User() {
+    }
 
     public User(String username, String email, String password) {
         this.username = username;
@@ -90,22 +84,6 @@ public class  User {
         this.roles = roles;
     }
 
-    public List<FinishStory> getFinishedStories() {
-        return finishedStories;
-    }
-
-    public void setFinishedStories(List<FinishStory> finishedStories) {
-        this.finishedStories = finishedStories;
-    }
-
-    public List<WriteStory> getWriteStories() {
-        return writeStories;
-    }
-
-    public void setWriteStories(List<WriteStory> writeStories) {
-        this.writeStories = writeStories;
-    }
-
     public List<Story> getStories() {
         return stories;
     }
@@ -117,9 +95,4 @@ public class  User {
     public List<StoryPart> getStoryParts() {
         return storyParts;
     }
-
-    public void setStoryParts(List<StoryPart> storyParts) {
-        this.storyParts = storyParts;
-    }
-
 }

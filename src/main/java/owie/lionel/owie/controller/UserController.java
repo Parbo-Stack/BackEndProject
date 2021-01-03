@@ -1,6 +1,8 @@
 package owie.lionel.owie.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import owie.lionel.owie.domain.Story;
 import owie.lionel.owie.domain.User;
@@ -22,16 +24,9 @@ public class UserController {
     @GetMapping(value = "api/users")
     public List<User> getAllUsers() { return userService.getAllUsers(); }
 
-    @PostMapping(value = "/api/user")
-    public User addUser(@RequestBody User newUser) {
-        return userService.addUser(newUser);
-    }
-
-    //TODO:dit weer nagaan bij nick zijn video
     @DeleteMapping(value = "api/user/{id}")
-    public String deleteUserById(@PathVariable long id) {
-        return userService.deleteUser(id); }
-
+    public String deleteById( @PathVariable Long id) {
+        return userService.deleteById(id); }
 }
 
 

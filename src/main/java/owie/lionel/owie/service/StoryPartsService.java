@@ -2,10 +2,12 @@ package owie.lionel.owie.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import owie.lionel.owie.domain.Story;
 import owie.lionel.owie.domain.StoryPart;
 import owie.lionel.owie.domain.User;
+import owie.lionel.owie.exception.StoryPartNotFoundException;
 import owie.lionel.owie.repository.StoryPartRepository;
 import owie.lionel.owie.repository.StoryRepository;
 import owie.lionel.owie.repository.UserRepository;
@@ -26,16 +28,18 @@ public class StoryPartsService implements IStoryPartsService {
     public UserRepository userRepository;
 
     @Override
-    public StoryPart createStoryPart(User user, Long storyId, StoryPart newStoryPart) {
+    public StoryPart createStoryPart(UserDetails userDetails, Long storyId, StoryPart newStoryPart) {
         Optional<Story> story = storyRepository.findById(storyId);
 
         if (story.isPresent()) {
-            newStoryPart.setAppUser(story.get().getAuthor());
+            newStoryPart.setAppUser(story.get().getUsers());
             newStoryPart.setStory(story.get());
             return storyPartRepository.save(newStoryPart);
         }
+
         return null;
     }
+
 
     @Override
     public List<StoryPart> getAllStoryParts() {

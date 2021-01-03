@@ -1,14 +1,16 @@
 package owie.lionel.owie.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name= "Story")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "Story")
 public class Story {
 
     @Id
@@ -19,25 +21,22 @@ public class Story {
     )
 
     private Long storyId;
-    String title;
+    private String title;
     @Column(name = "body", columnDefinition = "TEXT")
-    String body;
+    private String body;
+    private String author;
     LocalDate localDate = LocalDate.now();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "story")
+
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "story")
     private List<StoryPart> storyParts;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties("stories")
-    private User author;
+    private User users;
 
     public Story() {}
-
-    public Story(String title, String body, LocalDate localDate) {
-        this.title = title;
-        this.body = body;
-        this.localDate = localDate;
-    }
 
     public Long getStoryId() {
         return storyId;
@@ -63,11 +62,19 @@ public class Story {
         this.body = body;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
     public LocalDate getLocalDate() {
         return localDate;
     }
 
-    public void setLocalDateTime(LocalDate localDate) {
+    public void setLocalDate(LocalDate localDate) {
         this.localDate = localDate;
     }
 
@@ -79,10 +86,9 @@ public class Story {
         this.storyParts = storyParts;
     }
 
-    public User getAuthor() { return author; }
+    public User getUsers() { return users; }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setUsers(User users) {
+        this.users = users;
     }
-
 }
